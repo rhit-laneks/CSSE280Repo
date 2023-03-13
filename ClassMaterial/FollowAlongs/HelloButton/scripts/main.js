@@ -3,7 +3,7 @@
  * Provides the JavaScript interactions for all pages.
  *
  * @author 
- * PUT_YOUR_NAME_HERE
+ * Kaylee Lane
  */
 
 /** namespace. */
@@ -31,6 +31,7 @@ rhit.ClassName = class {
 /* Main */
 /** function and class syntax examples */
 rhit.main = function () {
+	console.log("Ready");
 	document.querySelector("#decrementButton").onclick = (event) => {
 		console.log("decrement button");
 		counter = counter - 1;
