@@ -1,0 +1,28 @@
+
+
+.nav-menu {
+text-align: right;
+}
+.nav-spacing {
+margin: 0 0 0 10px;
+}
+.image-link {
+    text-decoration: none;"
+}
+.header-moby{
+    text-align: center; 
+    margin: 0 0 80px;
+}
+.heading-moby{
+    text-align: center;
+}
+.content-moby {
+    width: 500px; margin: 20px auto; padding: 30px; backround-color: #fafafa;
+}
+.moby-quote {
+    font-style: italic; font-size: 20px;
+}
+.tags-tables {
+    padding: 10px;
+}
+ 
