@@ -1,0 +1,53 @@
+
+.bluebox {
+    background-color:#6495ED; /*CornflowerBlue*/
+    height:100px;
+    width:100px;
+    padding:10px;
+    border-width:10px;
+    border-color: black green orange yellow;
+    border-style: ridge; 
+    border-radius:80px; 
+    margin:10px;
+
+
+}
+
+.greenbox {
+    background: #98FB98/*PaleGreen*/ /*rgba(98, 251, 98, 0.3)  Green background with 30% opacity */; 
+    height:100px;
+    width:auto;
+    padding: 40px 70px;
+    border:10px solid; 
+    border-color: #fda000;
+    margin:10px;
+    /*background-image: url(https://www.1800flowers.com/blog/wp-content/uploads/2021/05/Birthday-Flowers-Colors.jpg);*/
+    background-image:url(images/flowers.jpg);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-origin: content-box;
+    outline-style: double; 
+    outline-width: thick;
+    outline-color: red;
+
+}
+
+.yellowbox {
+   background-color:#FFD700; /*Gold*/
+   padding:10px 20px 10px 30px;
+   height:100px;
+   width:auto;
+   border:10px dotted; 
+   border-color: #6c4ebc;
+   margin:10px;
+}
+.great {
+    font-size:300%;
+    }
+
+p {
+    margin:0;
+    background-color:#fff;
+    }
+        
+    
