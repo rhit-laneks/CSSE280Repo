@@ -35,21 +35,20 @@ rhit.Game = class {
 		for (let k = 0; k < 9; k++) {
 			this.board.push(rhit.Game.Mark.NONE);
 		}
-		console.log('this.board =', this.board);
-		console.log('this.state =', this.state);
+
 		
 }
 
 	pressedButtonAtIndex(buttonIndex) {
-
+		this.board[buttonIndex] = rhit.Game.Mark.X;
 	}
 
 	getMarkAtIndex(buttonIndex) {
-		return "X"; // TODO: Implement
+		return this.board[buttonIndex];
 	}
 
 	getState() {
-		return "X's Turn"; // TODO: Implement
+		return this.state;
 	}
 };
 
@@ -58,6 +57,14 @@ rhit.Game = class {
 rhit.main = function () {
 	console.log("Ready");
 	new rhit.PageController();
+
+	//Note: you could develop the model first doing stuff like this
+	// const myGame = new rhit.Game();
+	// console.log('this.board =', myGame.board);
+	// console.log('this.state =', myGame.state);
+	// myGame.pressedButtonAtIndex(4);
+	// console.log('this.board =', myGame.board);
+	// console.log('this.state =', myGame.state);
 };
 
 rhit.main();
