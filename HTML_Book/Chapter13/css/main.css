@@ -1,0 +1,136 @@
+/* Chapter 13 (1-3) Mobile Media Queries */
+
+
+/*Applying different styles if the screen is less than 800px wide*/
+@media (max-width: 800px) {
+    html {
+      box-shadow: none;
+      padding: 0;
+    }
+    .post-aside {
+      display: none;
+    }
+  }
+
+
+
+  @media (max-width: 800px) {
+    html {
+      box-shadow: none;
+      padding: 0;
+    }
+  
+    /* Making the header work better for mobile. */
+
+    /*HEADER STYLES*/
+    .header-nav {
+      padding: 2vh 1em 0 0;
+    }
+    .header-nav > li {
+      margin-left: 0.25em;
+    }
+    .header-nav > li ~ li {
+      padding-left: 0.25em;
+    }
+    .nav-links a {
+      font-size: 3.25vw;
+    }
+    .header-logo {
+      left: auto;
+    }
+
+   /*Stacking elements on mobile devices.*/
+   /* HOME STYLES */
+  .home-callout {
+    flex-direction: column;
+   }
+   .callout-copy {
+     flex: 1;
+   }
+   .bio-box {
+     float: none;
+     font-size: 1.3rem;
+     width: auto;
+   }
+  
+     /* BLOG STYLES */
+     .post-aside {
+       display: none;
+     }
+  }
+
+
+  .gallery {
+    flex-direction: column; /*switch the layout to be vertical*/
+  }
+  .gallery .col {
+    padding: 1em; /*lessen the amount of padding on each .col*/
+  }
+
+
+  /*give the element a fixed 100vw width so that it will horizontally scroll if there are a lot of thumbnails*/
+  .gallery .gallery-thumbs {
+    flex: 1 1 0;
+    height: auto;
+    white-space: nowrap;
+    width: 100vw;
+  }
+
+
+  /*change the thumbnails to have a set height instead of a set width , update the margins and padding, and change the flex properties for both the .gallery-thumbs 
+  and .gallery-info so that they will expand to fill space (while also no longer having a flex-basis that forces a set width):*/
+  .gallery .gallery-thumbs {
+    flex: 1;
+    height: auto;
+    white-space: nowrap;
+    width: 100vw;
+  }
+  .gallery-thumbs > div {
+    display: inline-block;
+  }
+  .gallery-thumbs img {
+    height: 7vh;
+    margin: 0 10px 0 0;
+    width: auto;
+  }
+  .gallery .gallery-info {
+    flex: 1;
+  }
+
+
+  /*Horizontal gallery thumbnails with a vertical page build*/
+  /* GALLERY STYLES */
+  .gallery {
+    flex-direction: column;
+  }
+  .gallery .col {
+    padding: 1em;
+  }
+  .gallery .gallery-thumbs {
+    flex: 1;
+    height: auto;
+    white-space: nowrap;
+    width: 100vw;
+  }
+  .gallery-thumbs > div {
+    display: inline-block;
+  }
+  .gallery-thumbs img {
+    height: 7vh;
+    margin: 0 10px 0 0;
+    width: auto;
+  }
+  .gallery .gallery-info {
+    flex: 1;
+  }
+
+
+
+  /*Simplifying the blog index*/
+  /* BLOG STYLES */
+  .blog-recent {
+    display: none;
+  }
+  .blog-previews {
+    padding: 0;
+  }
