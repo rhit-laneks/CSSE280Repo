@@ -287,7 +287,7 @@ heroes.clear(); //remove all key and value pairs from the map
 
 heroes.size;// 0
 
-Maps can be converted  in a similar way to sets; using either the spread operator:
+//Maps can be converted  in a similar way to sets; using either the spread operator:
 
 [...romanNumerals]; //Convert map into a nested array of key-value pairs
 //[ [ 1, 'I' ], [ 2, 'II' ], [ 3, 'III' ], [ 4, 'IV' ], [ 5, 'V' ] ]
@@ -434,3 +434,5 @@ console.log(`${key} in Roman numerals is ${value}`);
 5 in Roman numerals is V */
                 
 //weak maps are non-enumerable, so it isn't possible to loop over them using any of the methods shown above.
+
+
