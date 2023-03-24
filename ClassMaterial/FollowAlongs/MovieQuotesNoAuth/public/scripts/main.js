@@ -56,6 +56,7 @@ rhit.ListPageController = class {
 	  console.log("created FbMovieQuotesManager");
 	  this._documentSnapshots = [];
 	  this._ref = firebase.firestore().collection(rhit.FB_COLLECTION_MOVIEQUOTES);
+	  this._unsubscribe = null;
 	}
 	add(quote, movie) {  
 
@@ -73,10 +74,9 @@ rhit.ListPageController = class {
 		});
 	  }
 	beginListening(changeListener) {  
-		this._ref.onSnapshot((querySnapshot) => {
+		this._unsubscribe = this._ref.onSnapshot((querySnapshot) => {
 		  console.log("MovieQuote update!");
-		  
-			this._documentSnapshots = querySnapshot.docs;
+		  this._documentSnapshots = querySnapshot.docs;
 			// querySnapshot.forEach((doc) => {
 			// 	console.log(doc.data());
 			// });
@@ -84,7 +84,11 @@ rhit.ListPageController = class {
 		});
 	}
 
-	stopListening() {    }
+	stopListening() {  
+		this._unsubscribe();
+	  }
+
+	  
 	// update(id, quote, movie) {    }
 	// delete(id) { }
 	get length() {  
