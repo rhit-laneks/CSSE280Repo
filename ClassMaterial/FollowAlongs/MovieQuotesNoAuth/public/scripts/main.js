@@ -18,6 +18,17 @@ rhit.ListPageController = class {
 			rhit.fbMovieQuotesManager.add(quote, movie);
 
 		});
+
+		$("#addQuoteDialog").on("show.bs.modal",  (event) => {
+			//Pre animation
+			document.querySelector("#inputQuote").value = "";
+			document.querySelector("#inputMovie").value = "";
+		});
+
+		$("#addQuoteDialog").on("shown.bs.modal",  (event) => {
+			//Post animation
+			document.querySelector("#inputQuote").focus();
+		  });
 	}
 	updateList() {}
    }
