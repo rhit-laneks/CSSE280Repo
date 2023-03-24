@@ -36,3 +36,8 @@ body {
     display: block;
     text-overflow: ellipsis;
 }
+
+.dropdown-menu-right {
+    
+    left: -128px
+}
