@@ -44,6 +44,37 @@ rhit.ListPageController = class {
 
 	}
 
+	
+	updateList() {
+		console.log("I need to update the list on the page!");
+		console.log(`Num quotes = ${rhit.fbMovieQuotesManager.length}`);
+		console.log("Example quote = ", rhit.fbMovieQuotesManager.getMovieQuoteAtIndex(0));
+		
+		//Make a new quoteListContainer
+		const newList = htmlToElement('<div id="quoteListContainer"></div>')
+		//Fill the quoteListContainer with quote cards using a loop
+		for(let i = 0; i < rhit.fbMovieQuotesManager.length; i++) {
+			const mq = rhit.fbMovieQuotesManager.getMovieQuoteAtIndex(i);
+			const newCard = this._createCard(mq);
+
+			newCard.onclick = (event) => {
+				console.log(`You clicked on ${mq.id}`);
+				rhit.storage.setMovieQuoteId(mq.id);
+			};
+
+			newList.appendChild(newCard);
+		}
+
+		//Remove the old quoteListContainer
+		const oldList = document.querySelector("#quoteListContainer");
+		oldList.removeAttribute("id");
+		oldList.hidden = true;
+		
+		//Put in the new quoteListContainer
+		oldList.parentElement.appendChild(newList);
+	}	
+
+
 	_createCard(movieQuote) {
 		return htmlToElement(`<div class="card">
 		<div class="card-body">
@@ -52,29 +83,6 @@ rhit.ListPageController = class {
 		</div>
 	  </div>`);
 	}
-
-	updateList() {
-		console.log("I need to update the list on the page!");
-		console.log(`Num quotes = ${rhit.fbMovieQuotesManager.length}`);
-		console.log("Example quote = ", rhit.fbMovieQuotesManager.getMovieQuoteAtIndex(0));
-
-		//Make a new quoteListContainer
-		const newList = htmlToElement('<div id="quoteListContainer"></div>')
-		//Fill the quoteListContainer with quote cards using a loop
-		for(let i = 0; i < rhit.fbMovieQuotesManager.length; i++) {
-			const mq = rhit.fbMovieQuotesManager.getMovieQuoteAtIndex(i);
-			const newCard = this._createCard(mq);
-			newList.appendChild(newCard);
-		}
-
-		//Remove the old quoteListContainer
-		const oldList = document.querySelector("#quoteListContainer");
-		oldList.removeAttribute("id");
-		oldList.hidden = true;
-
-		//Put in the new quoteListContainer
-		oldList.parentElement.appendChild(newList);
-	}	
    }
 
    rhit.MovieQuote = class {
@@ -141,6 +149,20 @@ rhit.ListPageController = class {
 	 }
    }
    
+rhit.storage = rhit.storage || {};
+rhit.storage.MOVIEQUOTE_ID_KEY = "movieQuoteId";
+rhit.storage.getMovieQuoteId = function() {
+	const mqId = sessionStorage.getItem(rhit.storage.MOVIEQUOTE_ID_KEY);
+	if(!mqId) {
+		console.log("No movie quote id in session Storage!");
+	}
+	return mqId;
+};
+
+rhit.storage.setMovieQuoteId = function(movieQuoteId) {
+	sessionStorage.setItem(rhit.storage.MOVIEQUOTE_ID_KEY, movieQuoteId);
+};
+
 
 /* Main */
 /** function and class syntax examples */
