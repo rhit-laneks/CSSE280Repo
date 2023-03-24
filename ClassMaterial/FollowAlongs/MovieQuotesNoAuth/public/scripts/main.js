@@ -44,6 +44,15 @@ rhit.ListPageController = class {
 
 	}
 
+	_createCard(movieQuote) {
+		return htmlToElement(`<div class="card">
+		<div class="card-body">
+		  <h5 class="card-title">${movieQuote.quote}</h5>
+		  <h6 class="card-subtitle mb-2 text-muted">${movieQuote.movie}</h6>
+		</div>
+	  </div>`);
+	}
+
 	updateList() {
 		console.log("I need to update the list on the page!");
 		console.log(`Num quotes = ${rhit.fbMovieQuotesManager.length}`);
@@ -52,6 +61,11 @@ rhit.ListPageController = class {
 		//Make a new quoteListContainer
 		const newList = htmlToElement('<div id="quoteListContainer"></div>')
 		//Fill the quoteListContainer with quote cards using a loop
+		for(let i = 0; i < rhit.fbMovieQuotesManager.length; i++) {
+			const mq = rhit.fbMovieQuotesManager.getMovieQuoteAtIndex(i);
+			const newCard = this._createCard(mq);
+			newList.appendChild(newCard);
+		}
 
 		//Remove the old quoteListContainer
 		const oldList = document.querySelector("#quoteListContainer");
