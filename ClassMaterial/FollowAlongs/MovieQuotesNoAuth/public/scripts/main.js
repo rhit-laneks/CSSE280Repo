@@ -172,6 +172,15 @@ rhit.DetailPageController = class {
 		  });
 
 
+		document.querySelector("#submitDeleteQuote").addEventListener("click", (event) => {
+			rhit.fbSingleQuoteManager.delete().then(function () {
+				console.log("Document successfully deleted!");
+				window.location.href = "/";
+			}).catch(function (error) {
+				console.error("Error removing document: ", error);
+			});
+		});
+
 		rhit.fbSingleQuoteManager.beginListening(this.updateView.bind(this));
 	}
 	updateView() { 
@@ -220,7 +229,9 @@ rhit.FbSingleQuoteManager = class {
 	}
 
 
-	delete() {}
+	delete() {
+		return this._ref.delete()
+	}
 
 	get quote() {
 		return this._documentSnapshot.get(rhit.FB_KEY_QUOTE);
