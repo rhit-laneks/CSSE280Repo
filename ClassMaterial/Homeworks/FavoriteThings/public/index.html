@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+  <link rel="stylesheet" href="styles/bootstrap-material-design.min.css">
+  <link rel="stylesheet" href="styles/main.css">
+  <title>Favorite Things</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-dark fixed-top">
+    <a class="navbar-brand" href="#">Favorite Things</a>
+  </nav>
+  <div id="mainPage" class="container page-container">
+
+    <hr>
+    <h1 style="font-weight:bold">Favorite Number:</h1>
+    <div id="counterText">0</div>
+    <div id="counterButtonsGroup" class="row justify-content-center">
+    <div class="col col-md-2">
+      <button id="counterButton" type="button" data-amount="-1" class="btn btn-block btn-outline-primary">-1</button>
+    </div>
+    <div class="col col-md-2">
+      <button id="counterButton" type="button" data-is-multiplication="true" data-amount="0" class="btn btn-block btn-outline-primary">Reset</button>
+    </div>
+    <div class="col col-md-2">
+      <button id="counterButton" type="button" data-amount="1" class="btn btn-block btn-outline-primary">+1</button>
+    </div>
+    </div>
+
+
+    <hr>
+    <h1 style="font-weight:bold">Favorite Color:</h1>
+
+    <div id="favoriteColorContainer" class="mx-auto">
+      <div id="favoriteColorBox">
+        #800000
+      </div>
+    </div>
+
+    <div id="colorButtonsGroup" class="row no-gutters justify-content-center">
+      <div class="col col-md-2">
+        <button id="blueButton" type="button" data-color="blue" class="btn btn-block btn-outline-primary">Blue</button>
+      </div>
+      <div class="col col-md-2">
+        <button id="greenButton" type="button" data-color="green" class="btn btn-block btn-outline-primary">Green</button>
+      </div>
+      <div class="col col-md-2">
+        <button id="redButton" type="button" data-color="red" class="btn btn-block btn-outline-primary">Red</button>
+      </div>
+      <div class="col col-md-2">
+        <button id="purpleButton" type="button" data-color="purple" class="btn btn-block btn-outline-primary">Purple</button>
+      </div>
+      </div>
+
+
+    <hr>
+  
+
+  </div>
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/popper.js"></script>
+  <script src="scripts/bootstrap-material-design.js"></script>
+  <script>$("body").bootstrapMaterialDesign();</script>
+  <!-- <script src="/__/firebase/7.18.0/firebase-app.js"></script>
+  <script src="/__/firebase/7.18.0/firebase-analytics.js"></script>
+  <script src="/__/firebase/7.18.0/firebase-auth.js"></script>
+  <script src="/__/firebase/7.18.0/firebase-firestore.js"></script>
+  <script src="/__/firebase/init.js"></script> -->
+  <script src="scripts/main.js"></script>
+</body>
+
+</html>
+
+

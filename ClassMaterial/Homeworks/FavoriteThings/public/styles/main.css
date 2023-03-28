@@ -1,0 +1,98 @@
+body {
+    background: #DDDDDD;
+}
+
+.navbar {
+    background-color: #800000;
+    color: white;
+}
+
+.page-container {
+    margin-top: 75px;
+}
+
+#counterText {
+    font-size: 3em;
+    text-align: center;
+    /* margin-top: 50px; */
+}
+
+#counterButton {
+    color: white;
+    background-color: #800000;
+    border: none;
+    text-transform:none
+}
+
+
+#favoriteColorContainer {
+    width: 200px;
+    margin: 20px;
+ }
+ 
+ 
+ #favoriteColorBox {
+    background-color: #800000;
+    line-height: 100px;
+    text-align: center;
+    color: white;
+ }
+ 
+
+
+ #colorButtonsGroup>.col{
+    padding: 2px;
+ }
+
+ 
+ 
+ #blueButton {
+    color: white;
+    background-color: blue;
+    border: none;
+    text-transform: none;
+    
+   }
+   
+   
+   #greenButton {
+    color: white;
+    background-color: green;
+    border: none;
+    text-transform: none;
+
+ }
+
+ #redButton {
+    color: white;
+    background-color: red;
+    border: none;
+    text-transform: none;
+
+ }
+
+ #purpleButton {
+    color: white;
+    background-color: purple;
+    border: none;
+    text-transform: none;
+
+ }
+
+ #blueButton:hover, #blueButton:focus{
+   color:black;
+ }
+
+ #greenButton:hover, #greenButton:focus {
+   color:black;
+ }
+ #redButton:hover, #redButton:focus {
+   color:black;
+ }
+ #purpleButton:hover, #purpleButton:focus {
+   color:black;
+ }
+
+
+ 
+
