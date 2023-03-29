@@ -4,6 +4,7 @@ rhit.FB_COLLECTION_MOVIEQUOTES = "MovieQuotes";
 rhit.FB_KEY_QUOTE = "quote";
 rhit.FB_KEY_MOVIE = "movie";
 rhit.FB_KEY_LAST_TOUCHED = "lastTouched";
+rhit.FB_KEY_AUTHOR = "author";
 rhit.fbMovieQuotesManager = null;
 rhit.fbSingleQuoteManager = null;
 rhit.fbAuthManager = null;
@@ -114,7 +115,8 @@ rhit.MovieQuote = class {
 
 
 rhit.FbMovieQuotesManager = class {
-	constructor() {
+	constructor(uid) {
+		this._uid = uid;
 		this._documentSnapshots = [];
 		this._ref = firebase.firestore().collection(rhit.FB_COLLECTION_MOVIEQUOTES);
 		this._unsubscribe = null;
@@ -125,7 +127,9 @@ rhit.FbMovieQuotesManager = class {
 		this._ref.add({
 				[rhit.FB_KEY_QUOTE]: quote,
 				[rhit.FB_KEY_MOVIE]: movie,
+				[rhit.FB_KEY_AUTHOR]: rhit.fbAuthManager.uid,
 				[rhit.FB_KEY_LAST_TOUCHED]: firebase.firestore.Timestamp.now(),
+				
 			})
 			.then(function (docRef) {
 				console.log("Document written with ID: ", docRef.id);
@@ -135,10 +139,13 @@ rhit.FbMovieQuotesManager = class {
 			});
 	}
 	beginListening(changeListener) {
-		this._unsubscribe = this._ref
-			.orderBy(rhit.FB_KEY_LAST_TOUCHED, "desc")
-			.limit(50)
-			.onSnapshot((querySnapshot) => {
+
+		let query = this._ref.orderBy(rhit.FB_KEY_LAST_TOUCHED, "desc").limit(50);
+		if(this._uid) {
+			query = query.where(rhit.FB_KEY_AUTHOR, "==", this._uid);
+		}
+
+		this._unsubscribe = query.onSnapshot((querySnapshot) => {
 				console.log("MovieQuote update!");
 				this._documentSnapshots = querySnapshot.docs;
 				// querySnapshot.forEach((doc) => {
@@ -344,21 +351,17 @@ rhit.checkForRedirects = function() {
 
 
 rhit.initializePage = function() {
-
+	const urlParams = new URLSearchParams(window.location.search);
 	if (document.querySelector("#listPage")) {
 		console.log("You are on the list page.");
-		rhit.fbMovieQuotesManager = new rhit.FbMovieQuotesManager();
+		const uid = urlParams.get("uid");
+		rhit.fbMovieQuotesManager = new rhit.FbMovieQuotesManager(uid);
 		new rhit.ListPageController();
 
 	}
 
 	if (document.querySelector("#detailPage")) {
 		console.log("You are on the detail page.");
-		// const movieQuoteId = rhit.storage.getMovieQuoteId();
-
-		const queryString = window.location.search;
-		console.log(queryString);
-		const urlParams = new URLSearchParams(queryString);
 		const movieQuoteId = urlParams.get("id");
 
 		if (!movieQuoteId) {
