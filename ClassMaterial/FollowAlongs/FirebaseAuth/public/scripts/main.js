@@ -36,7 +36,7 @@ document.querySelector("#logInButton").onclick = (event) => {
   .catch((error) => {
     var errorCode = error.code;
     var errorMessage = error.message;
-	console.log("Create user error", errorCode, errorMessage);
+	console.log("existing account login error", errorCode, errorMessage);
 
   });
 };
@@ -82,7 +82,7 @@ firebase.auth().onAuthStateChanged((user) => {
        .catch((error) => {
          var errorCode = error.code;
          var errorMessage = error.message;
-         console.log("Log in existing user error", errorCode, errorMessage);
+         console.log("anonymous login error", errorCode, errorMessage);
        });
 
 };

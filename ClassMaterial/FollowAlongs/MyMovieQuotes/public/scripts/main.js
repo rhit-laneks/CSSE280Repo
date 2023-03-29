@@ -1,4 +1,3 @@
-
 var rhit = rhit || {};
 
 rhit.FB_COLLECTION_MOVIEQUOTES = "MovieQuotes";
@@ -15,8 +14,8 @@ function htmlToElement(html) {
 	html = html.trim();
 	template.innerHTML = html;
 	return template.content.firstChild;
-   }
-   
+}
+
 
 rhit.ListPageController = class {
 	constructor() {
@@ -30,32 +29,32 @@ rhit.ListPageController = class {
 
 		});
 
-		$("#addQuoteDialog").on("show.bs.modal",  (event) => {
+		$("#addQuoteDialog").on("show.bs.modal", (event) => {
 			//Pre animation
 			document.querySelector("#inputQuote").value = "";
 			document.querySelector("#inputMovie").value = "";
 		});
 
-		$("#addQuoteDialog").on("shown.bs.modal",  (event) => {
+		$("#addQuoteDialog").on("shown.bs.modal", (event) => {
 			//Post animation
 			document.querySelector("#inputQuote").focus();
-		  });
+		});
 
-		  //Start listening!
-		  rhit.fbMovieQuotesManager.beginListening(this.updateList.bind(this));
+		//Start listening!
+		rhit.fbMovieQuotesManager.beginListening(this.updateList.bind(this));
 
 	}
 
-	
+
 	updateList() {
 		console.log("I need to update the list on the page!");
 		console.log(`Num quotes = ${rhit.fbMovieQuotesManager.length}`);
 		console.log("Example quote = ", rhit.fbMovieQuotesManager.getMovieQuoteAtIndex(0));
-		
+
 		//Make a new quoteListContainer
 		const newList = htmlToElement('<div id="quoteListContainer"></div>')
 		//Fill the quoteListContainer with quote cards using a loop
-		for(let i = 0; i < rhit.fbMovieQuotesManager.length; i++) {
+		for (let i = 0; i < rhit.fbMovieQuotesManager.length; i++) {
 			const mq = rhit.fbMovieQuotesManager.getMovieQuoteAtIndex(i);
 			const newCard = this._createCard(mq);
 
@@ -73,10 +72,10 @@ rhit.ListPageController = class {
 		const oldList = document.querySelector("#quoteListContainer");
 		oldList.removeAttribute("id");
 		oldList.hidden = true;
-		
+
 		//Put in the new quoteListContainer
 		oldList.parentElement.appendChild(newList);
-	}	
+	}
 
 
 	_createCard(movieQuote) {
@@ -87,71 +86,71 @@ rhit.ListPageController = class {
 		</div>
 	  </div>`);
 	}
-   }
+}
 
-   rhit.MovieQuote = class {
+rhit.MovieQuote = class {
 	constructor(id, quote, movie) {
-	  this.id = id;
-	  this.quote = quote;
-	  this.movie = movie;  
+		this.id = id;
+		this.quote = quote;
+		this.movie = movie;
 	}
-   }
+}
 
-   
-   rhit.FbMovieQuotesManager = class {
+
+rhit.FbMovieQuotesManager = class {
 	constructor() {
-	  this._documentSnapshots = [];
-	  this._ref = firebase.firestore().collection(rhit.FB_COLLECTION_MOVIEQUOTES);
-	  this._unsubscribe = null;
+		this._documentSnapshots = [];
+		this._ref = firebase.firestore().collection(rhit.FB_COLLECTION_MOVIEQUOTES);
+		this._unsubscribe = null;
 	}
-	add(quote, movie) {  
+	add(quote, movie) {
 
 		// Add a new document with a generated id.
 		this._ref.add({
-			[rhit.FB_KEY_QUOTE]:quote,
-			[rhit.FB_KEY_MOVIE]: movie,
-			[rhit.FB_KEY_LAST_TOUCHED]: firebase.firestore.Timestamp.now(),
-		})
-		.then(function (docRef) {
-			console.log("Document written with ID: ", docRef.id);
-		})
-		.catch(function (error) {
-			console.error("Error adding document: ", error);
-		});
-	  }
-	beginListening(changeListener) {  
+				[rhit.FB_KEY_QUOTE]: quote,
+				[rhit.FB_KEY_MOVIE]: movie,
+				[rhit.FB_KEY_LAST_TOUCHED]: firebase.firestore.Timestamp.now(),
+			})
+			.then(function (docRef) {
+				console.log("Document written with ID: ", docRef.id);
+			})
+			.catch(function (error) {
+				console.error("Error adding document: ", error);
+			});
+	}
+	beginListening(changeListener) {
 		this._unsubscribe = this._ref
-		.orderBy(rhit.FB_KEY_LAST_TOUCHED, "desc")
-		.limit(50)
-		.onSnapshot((querySnapshot) => {
-		  console.log("MovieQuote update!");
-		  this._documentSnapshots = querySnapshot.docs;
-			// querySnapshot.forEach((doc) => {
-			// 	console.log(doc.data());
-			// });
-			changeListener();
-		});
+			.orderBy(rhit.FB_KEY_LAST_TOUCHED, "desc")
+			.limit(50)
+			.onSnapshot((querySnapshot) => {
+				console.log("MovieQuote update!");
+				this._documentSnapshots = querySnapshot.docs;
+				// querySnapshot.forEach((doc) => {
+				// 	console.log(doc.data());
+				// });
+				changeListener();
+			});
 	}
 
-	stopListening() {  
+	stopListening() {
 		this._unsubscribe();
-	  }
+	}
 
-	  
+
 	// update(id, quote, movie) {    }
 	// delete(id) { }
-	get length() {  
+	get length() {
 		return this._documentSnapshots.length;
-	  }
-	getMovieQuoteAtIndex(index) {  
-		const docSnapshot = this._documentSnapshots[index]; 
+	}
+	getMovieQuoteAtIndex(index) {
+		const docSnapshot = this._documentSnapshots[index];
 		const mq = new rhit.MovieQuote(docSnapshot.id,
 			docSnapshot.get(rhit.FB_KEY_QUOTE),
-			docSnapshot.get(rhit.FB_KEY_MOVIE),);
+			docSnapshot.get(rhit.FB_KEY_MOVIE), );
 		return mq;
-	 }
-   }
- 
+	}
+}
+
 rhit.DetailPageController = class {
 	constructor() {
 		document.querySelector("#submitEditQuote").addEventListener("click", (event) => {
@@ -161,16 +160,16 @@ rhit.DetailPageController = class {
 
 		});
 
-		$("#editQuoteDialog").on("show.bs.modal",  (event) => {
+		$("#editQuoteDialog").on("show.bs.modal", (event) => {
 			//Pre animation
 			document.querySelector("#inputQuote").value = rhit.fbSingleQuoteManager.quote;
 			document.querySelector("#inputMovie").value = rhit.fbSingleQuoteManager.movie;
 		});
 
-		$("#editQuoteDialog").on("shown.bs.modal",  (event) => {
+		$("#editQuoteDialog").on("shown.bs.modal", (event) => {
 			//Post animation
 			document.querySelector("#inputQuote").focus();
-		  });
+		});
 
 
 		document.querySelector("#submitDeleteQuote").addEventListener("click", (event) => {
@@ -184,7 +183,7 @@ rhit.DetailPageController = class {
 
 		rhit.fbSingleQuoteManager.beginListening(this.updateView.bind(this));
 	}
-	updateView() { 
+	updateView() {
 		document.querySelector("#cardQuote").innerHTML = rhit.fbSingleQuoteManager.quote;
 		document.querySelector("#cardMovie").innerHTML = rhit.fbSingleQuoteManager.movie;
 	}
@@ -192,9 +191,9 @@ rhit.DetailPageController = class {
 
 rhit.FbSingleQuoteManager = class {
 	constructor(movieQuoteId) {
-	  this._documentSnapshot = {};
-	  this._unsubscribe = null;
-	  this._ref = firebase.firestore().collection(rhit.FB_COLLECTION_MOVIEQUOTES).doc(movieQuoteId);
+		this._documentSnapshot = {};
+		this._unsubscribe = null;
+		this._ref = firebase.firestore().collection(rhit.FB_COLLECTION_MOVIEQUOTES).doc(movieQuoteId);
 	}
 	beginListening(changeListener) {
 		this._unsubscribe = this._ref.onSnapshot((doc) => {
@@ -212,21 +211,21 @@ rhit.FbSingleQuoteManager = class {
 
 	}
 	stopListening() {
-	  this._unsubscribe();
+		this._unsubscribe();
 	}
 	update(quote, movie) {
 
 		this._ref.update({
-			[rhit.FB_KEY_QUOTE]:quote,
-			[rhit.FB_KEY_MOVIE]: movie,
-			[rhit.FB_KEY_LAST_TOUCHED]: firebase.firestore.Timestamp.now(),
-		})
-		.then(() => {
-			console.log("Document successfully updated!");
-		})
-		.catch(function(error) {
-			console.error("Error updating document: ", error);
-		});
+				[rhit.FB_KEY_QUOTE]: quote,
+				[rhit.FB_KEY_MOVIE]: movie,
+				[rhit.FB_KEY_LAST_TOUCHED]: firebase.firestore.Timestamp.now(),
+			})
+			.then(() => {
+				console.log("Document successfully updated!");
+			})
+			.catch(function (error) {
+				console.error("Error updating document: ", error);
+			});
 	}
 
 
@@ -242,9 +241,9 @@ rhit.FbSingleQuoteManager = class {
 		return this._documentSnapshot.get(rhit.FB_KEY_MOVIE);
 	}
 
-   }
-   
-   
+}
+
+
 
 // rhit.storage = rhit.storage || {};
 // rhit.storage.MOVIEQUOTE_ID_KEY = "movieQuoteId";
@@ -262,39 +261,82 @@ rhit.FbSingleQuoteManager = class {
 
 rhit.LoginPageController = class {
 	constructor() {
-		console.log("You have made the Login Page Controller");
+		document.querySelector("#rosefireButton").onclick = (event) => {
+			rhit.fbAuthManager.signIn();
+		}
 	}
 }
 
 rhit.FbAuthManager = class {
-constructor() {
-	this._user = null;
-	console.log("You have made the Auth Manager");
+	constructor() {
+		this._user = null;
+		console.log("You have made the Auth Manager");
+	}
+	beginListening(changeListener) {
+
+		firebase.auth().onAuthStateChanged((user) => {
+			this._user = user;
+			changeListener();
+		});
+	}
+	signIn() {
+		console.log("TODO: Sign in using rosefire");
+		Rosefire.signIn("5fb727da-2081-43e6-bb44-0612c68b7a93", (err, rfUser) => {
+			if (err) {
+				console.log("Rosefire error!", err);
+				return;
+			}
+			console.log("Rosefire success!", rfUser);
+
+			firebase.auth().signInWithCustomToken(rfUser.token).catch((error) => {
+				const errorCode = error.code;
+				const errorMessage = error.message;
+				if (error.code === 'auth/invalid-custom-token') {
+				  alert("The token you provided is not valid.");
+				} else {
+				  console.error("Custom auth error", errorCode, errorMessage);
+				}
+			  });
+
+		});
+
+	}
+	signOut() {
+		firebase.auth().signOut().catch((error) => {
+			console.log("Sign out error");
+		});
+	}
+	get isSignedIn() {
+		return !!this._user;
+	}
+	get uid() {
+		return this._user.uid;
+	}
 }
-beginListening(changeListener) {}
-signIn() {}
-signOut() {}
-get isSignedIn() {}
-get uid() {}
-   }
-   
-   
+
+	
+rhit.checkForRedirects = function() {
+	if(document.querySelector("#loginPage") && rhit.fbAuthManager.isSignedIn) {
+		window.location.href = "/list.html";
+	}
+
+	if(!document.querySelector("#loginPage") && !rhit.fbAuthManager.isSignedIn) {
+		window.location.href = "/";
+	}
+
+};
 
 
-/* Main */
-/** function and class syntax examples */
-rhit.main = function () {
-	console.log("Ready");
-	rhit.fbAuthManager = new rhit.FbAuthManager(); /* need to be able to access on every page to know who is signed in */
+rhit.initializePage = function() {
 
-	if(document.querySelector("#listPage")) {
+	if (document.querySelector("#listPage")) {
 		console.log("You are on the list page.");
 		rhit.fbMovieQuotesManager = new rhit.FbMovieQuotesManager();
 		new rhit.ListPageController();
 
 	}
 
-	if(document.querySelector("#detailPage")) {
+	if (document.querySelector("#detailPage")) {
 		console.log("You are on the detail page.");
 		// const movieQuoteId = rhit.storage.getMovieQuoteId();
 
@@ -303,14 +345,14 @@ rhit.main = function () {
 		const urlParams = new URLSearchParams(queryString);
 		const movieQuoteId = urlParams.get("id");
 
-		if(!movieQuoteId) {
+		if (!movieQuoteId) {
 			window.location.href = "/";
 		}
 		rhit.fbSingleQuoteManager = new rhit.FbSingleQuoteManager(movieQuoteId);
 		new rhit.DetailPageController();
 	}
 
-	if(document.querySelector("#loginPage")) {
+	if (document.querySelector("#loginPage")) {
 		console.log("You are on the login page.");
 
 		new rhit.LoginPageController();
@@ -318,10 +360,27 @@ rhit.main = function () {
 	}
 
 
+};
+
+
+/* Main */
+/** function and class syntax examples */
+rhit.main = function () {
+	console.log("Ready");
+	rhit.fbAuthManager = new rhit.FbAuthManager(); /* need to be able to access on every page to know who is signed in */
+	rhit.fbAuthManager.beginListening(() => {
+		console.log("isSignedIn =", rhit.fbAuthManager.isSignedIn);
+		rhit.checkForRedirects();
+		rhit.initializePage();
+
+	});
+
+	
+
 	//Temp code for Read and Add
 	// const ref = firebase.firestore().collection("MovieQuotes");
 	// ref.onSnapshot((querySnapshot) => {
-		
+
 	// 	querySnapshot.forEach((doc) => {
 	// 		console.log(doc.data());
 	// 	});
