@@ -44,7 +44,8 @@ rhit.PageController = class {
 			// });
 
 			// fetch(`/api/getmove/${boardString}`)
-			fetch(`http://localhost:5001/laneks-cloudfunctions/us-central1/api/getmove/${boardString}`)
+			// fetch(`http://localhost:5001/laneks-cloudfunctions/us-central1/api/getmove/${boardString}`)
+			fetch(`https://us-central1-laneks-cloudfunctions.cloudfunctions.net/api/getmove/${boardString}`)
 			.then(response => response.json())
 			.then(data => {
 				console.log("Received",data);
